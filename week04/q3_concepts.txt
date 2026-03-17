@@ -1,27 +1,18 @@
 姓名:李翊銘
 學號:C112181181
+Q1：請說明管線符號 | 的功能，並舉一個實際使用的例子。
+A1：功能： 將前一個指令的「輸出」傳送給後一個指令作為「輸入」（資料接龍）。
+例子： ls -l | grep ".txt"（列出所有檔案後，只篩選出副檔名為 .txt 的檔案）。
 
-total 736
-drwxr-x---. 8 student221 student221  16384 Mar 17 06:44 .
-drwxr-xr-x. 1 root       root        16384 Mar 10 03:13 ..
--rw-------. 1 student221 student221     43 Mar 10 08:09 .bash_history
--rw-r--r--. 1 student221 student221    220 Jan  6  2022 .bash_logout
--rw-r--r--. 1 student221 student221   3771 Jan  6  2022 .bashrc
-drwx------. 2 student221 student221     34 Mar 10 03:16 .cache
--rw-r--r--. 1 student221 student221    807 Jan  6  2022 .profile
--rw-rw-r--. 1 student221 student221    171 Mar 17 06:40 .wget-hsts
--rw-rw-r--. 1 student221 student221    189 Mar  9 06:57 README.txt
-drwxrwxr-x. 2 student221 student221      6 Mar  9 06:57 documents
-drwxr-xr-x. 2 student221 student221     83 Mar  9 06:57 exercises
--rw-rw-r--. 1 student221 student221 688430 Jan 14 12:51 koala.png
--rw-rw-r--. 1 student221 student221     32 Mar 10 07:07 myfile..txt
-drwxrwxr-x. 2 student221 student221      6 Mar  9 06:57 projects
-drwxrwxr-x. 2 student221 student221      6 Mar  9 06:57 scripts
-drwxrwxr-x. 4 student221 student221     51 Mar 17 06:56 week04
+Q2：請說明 > 和 >> 的差異，各舉一個使用情境。
+A2：
+> (覆蓋)： 將輸出寫入檔案，若檔案已存在則覆蓋原有內容。
 
+情境： 每天重新產生一份全新的當日報表檔案。
 
-student221@linux-server2:~$ date >> ~/week04/home_list.txt
-student221@linux-server2:~$ tail -3 ~/week04/home_list.txt
-drwxrwxr-x. 2 student221 student221      6 Mar  9 06:57 scripts
-drwxrwxr-x. 4 student221 student221     51 Mar 17 06:56 week04
-Tue Mar 17 06:57:06 UTC 2026
+>> (累加)： 將輸出寫入檔案，若檔案已存在則接續在末尾。
+
+情境： 在 Log 紀錄檔中持續寫入新的伺服器存取狀態。
+Q3：請寫出一行指令，找出 /etc/passwd 中有多少個使用者的 shell 是 /bin/bash。
+    提示：可以結合 grep 和 wc 指令。
+A3：grep -c "/bin/bash" /etc/passwd
