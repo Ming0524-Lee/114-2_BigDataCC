@@ -1,0 +1,110 @@
+姓名：請填姓名
+學號：請填學號
+
+=== 任務 1：啟動 nginx 容器 ===
+
+執行指令：
+docker run -d --name my-nginx -p 8080:80 nginx:alpine
+
+（貼上輸出的容器 ID）
+請貼上你的容器 ID，例如：a1b2c3d4e5f6...
+
+=== 任務 2：查看容器狀態 ===
+
+執行指令：
+docker ps
+
+（貼上完整輸出，確認 my-nginx 的 STATUS 是 Up，PORTS 顯示 0.0.0.0:8080->80/tcp）
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+請替換          nginx:alpine   "/docker-entrypoint.…"   請替換           Up 請替換        0.0.0.0:8080->80/tcp, :::8080->80/tcp   my-nginx
+
+=== 任務 3：測試 nginx 服務 ===
+
+執行指令：
+curl http://localhost:8080
+
+（貼上回傳的 HTML 內容，應包含 "Welcome to nginx!"）
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
+=== 任務 4：進入容器 ===
+
+執行指令：
+docker exec -it my-nginx sh
+
+進入後執行：
+hostname
+ls /etc/nginx
+cat /etc/nginx/nginx.conf | head -n 10
+
+（hostname 輸出）：
+請貼上你的 hostname，通常會接近容器 ID 前幾碼
+
+（ls /etc/nginx 輸出）：
+conf.d
+fastcgi_params
+mime.types
+modules
+nginx.conf
+scgi_params
+uwsgi_params
+
+（cat /etc/nginx/nginx.conf 前 10 行輸出）：
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+輸入 exit 離開容器。
+
+=== 任務 5：查看容器 log ===
+
+執行指令：
+docker logs my-nginx
+
+（貼上最後 5 行 log 輸出）
+請貼上 docker logs my-nginx 的最後 5 行，通常會包含 GET / HTTP/1.1 或 nginx 啟動訊息。
+
+=== 任務 6：停止並刪除容器 ===
+
+執行指令：
+docker stop my-nginx
+docker rm my-nginx
+
+執行 docker ps -a，確認 my-nginx 已移除：
+（貼上 docker ps -a 輸出，確認清單中沒有 my-nginx）
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+=== 觀念題 ===
+Q1：docker run -d 和 docker run -it 的使用時機有什麼不同？
+A1：
+docker run -d 是背景執行，適合啟動需要長時間運作的服務，例如 nginx、資料庫或 API 伺服器。docker run -it 是互動模式，會讓使用者進入容器的終端機，適合測試、除錯或手動執行指令。簡單說，-d 適合跑服務，-it 適合進去操作容器。
+
+Q2：-p 8080:80 的意思是什麼？如果把主機的 8080 改成 9090，應用程式的行為會有什麼不同？
+A2：
+-p 8080:80 代表把主機的 8080 埠對應到容器內的 80 埠，所以使用者可以透過 http://localhost:8080 連到容器內的 nginx。如果改成 -p 9090:80，容器內 nginx 仍然使用 80 埠，但主機要改用 http://localhost:9090 才能連線，外部存取的埠號會改變。

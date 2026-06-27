@@ -1,0 +1,59 @@
+姓名：請填姓名
+學號：請填學號
+
+=== 任務 1：確認 Docker 環境 ===
+
+執行指令：
+docker version
+
+（請把下面兩行改成你電腦實際顯示的 Version 行；不同電腦版本會不同）
+Client Version: Version:           請貼上你的 Client Version
+Server Engine Version: Version:    請貼上你的 Server Engine Version
+
+=== 任務 2：拉取映像檔 ===
+
+執行指令：
+docker pull ubuntu:22.04
+docker pull python:3.11-slim
+docker pull nginx:alpine
+
+（每個 pull 完成後，貼上最後一行輸出）
+
+ubuntu:22.04：Status: 請貼上實際輸出，例如 Downloaded newer image for ubuntu:22.04 或 Image is up to date for ubuntu:22.04
+python:3.11-slim：Status: 請貼上實際輸出，例如 Downloaded newer image for python:3.11-slim 或 Image is up to date for python:3.11-slim
+nginx:alpine：Status: 請貼上實際輸出，例如 Downloaded newer image for nginx:alpine 或 Image is up to date for nginx:alpine
+
+=== 任務 3：列出映像檔 ===
+
+執行指令：
+docker images
+
+（貼上完整輸出）
+REPOSITORY        TAG         IMAGE ID       CREATED        SIZE
+ubuntu            22.04       請替換          請替換         請替換
+python            3.11-slim   請替換          請替換         請替換
+nginx             alpine      請替換          請替換         請替換
+
+=== 任務 4：刪除映像檔 ===
+
+執行指令：
+docker rmi ubuntu:22.04
+
+（貼上刪除後的輸出）
+Untagged: ubuntu:22.04
+Deleted: 請貼上你的刪除輸出
+
+執行 docker images，確認 ubuntu:22.04 已移除：
+（貼上刪除後的 docker images 輸出）
+REPOSITORY        TAG         IMAGE ID       CREATED        SIZE
+python            3.11-slim   請替換          請替換         請替換
+nginx             alpine      請替換          請替換         請替換
+
+=== 觀念題 ===
+Q1：映像檔（Image）和容器（Container）有什麼不同？
+A1：
+映像檔是建立容器的範本，裡面包含作業系統環境、程式、套件與設定，通常是唯讀的。容器是由映像檔啟動後正在執行或曾經執行的實例，可以有自己的程序、檔案變更與網路設定。簡單說，Image 像安裝檔或藍圖，Container 像真正開起來執行的程式環境。
+
+Q2：為什麼刪除映像檔前需要先刪除使用該映像檔的容器？
+A2：
+因為容器是根據映像檔建立的，如果還有容器正在使用該映像檔，Docker 需要保留映像檔的層，避免容器無法正常運作或資料關聯中斷。所以要先停止並刪除相關容器，再刪除映像檔，才能確保不會影響仍存在的容器。
